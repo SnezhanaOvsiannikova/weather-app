@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import WeatherContentColumn from '../weatherContentColumn/WeatherContentColumn.js';
+import WeatherContentColumn from '../weatherContentColumn/WeatherContentColumn';
 import { Row, Col, CardTitle, Button } from 'reactstrap';
 import './style.css';
 
@@ -13,7 +13,7 @@ import './style.css';
         const nextDayDate = new Date();
 
         nextDayDate.setDate(nextDayDate.getDate() + 1);
-        nextDayDate.setHours(12, 0, 0, 0); //setting 12:00 of next day
+        nextDayDate.setHours(12, 0, 0, 0);
 
         daysOfweek.push({
             ...closestWeatherDate,
