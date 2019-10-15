@@ -1,39 +1,38 @@
 .card .card-title,
 .card .card-subtitle {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .card {
-    flex: 1;
+  flex: 1;
+  margin-bottom: 20px;
 }
 
 .current-day.card {
-    border-color: #f08114;
+  border-color: #f08114;
 }
 
 .card .card-title {
-    font-size: 14px;
-    color: #f08114;
+  color: #f08114;
+  font-size: 14px;
 }
 
 .card .card-subtitle {
-    color: #2e2e2e;
-    font-weight: 600;
-    font-size: 12px;
-    border-bottom: 2px solid #2e2e2e;
+  border-bottom: 2px solid #2e2e2e;
+  color: #2e2e2e;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .fa.fa-tint {
-    font-size: 12px;
-    color: #6666f1;
-    font-size: 12px;
-    color: #6666f1;
-    position: relative;
-    margin-right: 8px;
+  color: #6666f1;
+  font-size: 12px;
+  margin-right: 8px;
+  position: relative;
 }
 
 .fa.fa-tint:before {
-    top: -15px;
-    position: absolute;
-    left: 2px;
+  left: 2px;
+  position: absolute;
+  top: -15px;
 }

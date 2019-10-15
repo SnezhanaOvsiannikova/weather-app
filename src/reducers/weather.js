@@ -1,50 +1,46 @@
+import {
+  GET_WEATHER_REQUEST,
+  GET_WEATHER_SUCCESS,
+  GET_WEATHER_FAILED,
+  GET_COORDINATES_BY_CITY_NAME_FAILED
+} from "../actions/actionsType";
+
 const initialState = {
-    lat: null,
-    lon: null,
-    data: {},
-    loading: true,
-    error: null,
-    cityName: '',
+  data: {},
+  loading: true,
+  error: null
 };
 
 const weather = (state = initialState, action) => {
-    switch (action.type) {
-        case 'SET_POSITION':
-            return {
-                ...state,
-                lat: action.payload.lat,
-                lon: action.payload.lon,
-            };
-        case 'GET_WEATHER':
-            return {
-                ...state,
-                data: action.data,
-                loading: false,
-            };
-        case 'GET_WEATHER_LOADING':
-            return {
-                ...state, 
-                loading: true,
-            };
-        case 'GET_WEATHER_ERROR':
-            return {
-                ...state,
-                error: action.error,
-                loading: false,
-            };
-        case 'GET_COORDINATES_BY_CITY_NAME_ERROR':
-            return {
-                ...state,
-                error: action.error,
-            };
-        case 'GET_POSITION_BY_CITY_NAME':
-                return {
-                    ...state,
-                    cityName: action.cityName,
-                };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case GET_WEATHER_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case GET_WEATHER_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        loading: false
+      };
+    case GET_WEATHER_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        data: null
+      };
+    case GET_COORDINATES_BY_CITY_NAME_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        data: null
+      };
+    default:
+      return state;
   }
-  
-  export default weather;
+};
+
+export default weather;

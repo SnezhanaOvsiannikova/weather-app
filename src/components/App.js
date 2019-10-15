@@ -1,66 +1,83 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Container, Row, Col, Spinner } from 'reactstrap';
-import { setPosition, getPositionByCityName } from '../actions';
-import SearchPanel from './searchPanel/SearchPanel';
-import WeatherContent from './weatherContent/WeatherContent';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Container, Row, Col, Spinner } from "reactstrap";
+import { setCoordinates, getPositionByCityName } from "../actions";
+import SearchPanel from "./searchPanel/SearchPanel";
+import WeatherContent from "./weatherContent/WeatherContent";
 
 class App extends Component {
-    componentDidMount() {
-        this.getLocation();
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.onPosition);
     }
+  };
 
-    getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.onPosition);
-        }
-    };
+  onPosition = position => {
+    const { setCoordinates } = this.props;
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    setCoordinates(lat, lon);
+  };
 
-    onPosition = (position) => {
-        const lat = position.coords.latitude; 
-        const lon =  position.coords.longitude;
-        this.props.setPosition(lat, lon);
-    };
+  renderWeatherContent = () => {
+    const { data } = this.props;
 
-    render () {
-        const { data, loading, getPositionByCityName } = this.props;
+    return data ? (
+      <Col md={12}>
+        <WeatherContent data={data} />
+      </Col>
+    ) : (
+      <Col>No result</Col>
+    );
+  };
 
-        return (
-            <Container>
-                <Row>
-                    <Col md={12}>
-                        <SearchPanel
-                            getPosition={getPositionByCityName}
-                        />
-                    </Col>
-                    {loading
-                        ? <Spinner 
-                            color="dark" 
-                            style={{ width: '3rem', height: '3rem' }}/>
-                        : <Col md={12}>
-                            <WeatherContent 
-                                data={data}
-                            />
-                        </Col>
-                    }
-                </Row>
-            </Container>
-        )
-    }
+  render() {
+    const { loading, getPositionByCityName } = this.props;
+
+    return (
+      <Container>
+        <Row>
+          <Col md={12}>
+            <SearchPanel getPosition={getPositionByCityName} />
+          </Col>
+          {loading ? (
+            <Spinner color="dark" style={{ width: "3rem", height: "3rem" }} />
+          ) : (
+            this.renderWeatherContent()
+          )}
+        </Row>
+      </Container>
+    );
+  }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        data: state.weather.data,
-        loading: state.weather.loading,
-    }
+App.propTypes = {
+  data: PropTypes.object,
+  loading: PropTypes.bool,
+  setCoordinates: PropTypes.func,
+  getPositionByCityName: PropTypes.func
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setPosition: (lat, lon) => dispatch(setPosition(lat, lon)),
-        getPositionByCityName: (cityName) => dispatch(getPositionByCityName(cityName)),
-    }
+const mapStateToProps = state => {
+  return {
+    data: state.weather.data,
+    loading: state.weather.loading
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    setCoordinates: (lat, lon) => dispatch(setCoordinates(lat, lon)),
+    getPositionByCityName: cityName => dispatch(getPositionByCityName(cityName))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

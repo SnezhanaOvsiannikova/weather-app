@@ -1,14 +1,21 @@
 .content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: stretch;
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .card-title {
-    font-weight: 800;
+  font-weight: 800;
 }
 
 .button-wrap {
-    text-align: right;
+  text-align: right;
+}
+@media (max-width: 667px) {
+  .content-wrapper {
+    flex-direction: column;
+    margin: 0 auto;
+    width: 70%;
+  }
 }
