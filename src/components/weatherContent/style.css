@@ -12,6 +12,7 @@
 .button-wrap {
   text-align: right;
 }
+
 @media (max-width: 667px) {
   .content-wrapper {
     flex-direction: column;
