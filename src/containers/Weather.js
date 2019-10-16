@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Container, Row, Col, Spinner } from "reactstrap";
 import { setCoordinates, getPositionByCityName } from "../actions";
-import SearchPanel from "./searchPanel/SearchPanel";
-import WeatherContent from "./weatherContent/WeatherContent";
+import SearchPanel from "../components/searchPanel/SearchPanel";
+import WeatherContent from "../components/weatherContent/WeatherContent";
 
-class App extends Component {
+class Weather extends Component {
   componentDidMount() {
     this.getLocation();
   }
@@ -56,7 +56,7 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+Weather.propTypes = {
   data: PropTypes.object,
   loading: PropTypes.bool,
   setCoordinates: PropTypes.func,
@@ -80,4 +80,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Weather);
